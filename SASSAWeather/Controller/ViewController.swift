@@ -38,6 +38,8 @@ class ViewController: UIViewController {
         
         
         weatherViewModel.fetchBreaches{ [weak self] breaches in
+            
+//            switch breaches
             DispatchQueue.main.async {
                 self?.updateUI()
             }

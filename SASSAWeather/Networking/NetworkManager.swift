@@ -10,11 +10,11 @@ import Foundation
 class NetworkManager {
     
     static let sharedInstance = NetworkManager()
-    typealias ServerResponse = (data: Data, response: URLResponse)
+    
     
     private init() {}
     
-    func getWeatherDetails(_ session: URLSession, using completionHandler: @escaping (Result<ServerResponse, Error>) -> Void) {
+    func getWeatherDetails(_ session: URLSession, using completionHandler: @escaping (Result<Data, Error>) -> Void) {
         
         guard let url = URL(string: Constants.nasaURL) else {
             completionHandler(.failure(NetworkError.invalidURL))
@@ -26,11 +26,11 @@ class NetworkManager {
                 completionHandler(.failure(error))
             } else if let data = data, let response = response as? HTTPURLResponse,
                       200 ..< 300 ~= response.statusCode {
-                completionHandler(.success((data, response)))
+                completionHandler(.success(data))
             } else {
                 completionHandler(.failure(NetworkError.unexpectedStatusCode))
                 return
             }
         }).resume()
-    }
+    }    
 }

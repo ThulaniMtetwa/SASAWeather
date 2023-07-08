@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoDataFoundView" customModule="SASSAWeather" customModuleProvider="target">
+            <connections>
+                <outlet property="messageImageView" destination="ab8-KL-K3t" id="jMj-4d-nP1"/>
+                <outlet property="messageLabel" destination="ASc-nm-OHs" id="y9F-Qb-8cF"/>
+                <outlet property="titleLabel" destination="Dnc-NC-sVv" id="CTz-Y4-hSV"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ab8-KL-K3t">
+                    <rect key="frame" x="30" y="216" width="333" height="204"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="204" id="Rgi-Ga-FlL"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dnc-NC-sVv">
+                    <rect key="frame" x="20" y="428" width="353" height="20.333333333333314"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASc-nm-OHs">
+                    <rect key="frame" x="20" y="451" width="353" height="16"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Dnc-NC-sVv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="2l9-6j-cYW"/>
+                <constraint firstItem="ASc-nm-OHs" firstAttribute="leading" secondItem="Dnc-NC-sVv" secondAttribute="leading" id="355-tK-25g"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Dnc-NC-sVv" secondAttribute="trailing" constant="20" id="5dk-x7-rpa"/>
+                <constraint firstItem="Dnc-NC-sVv" firstAttribute="top" secondItem="ab8-KL-K3t" secondAttribute="bottom" constant="8" symbolic="YES" id="6zQ-Hc-a8R"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ab8-KL-K3t" secondAttribute="trailing" constant="30" id="KoW-Er-x72"/>
+                <constraint firstItem="ab8-KL-K3t" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="30" id="Lfg-mm-IdO"/>
+                <constraint firstItem="ASc-nm-OHs" firstAttribute="top" secondItem="Dnc-NC-sVv" secondAttribute="bottom" constant="2.6666666666666856" id="dRZ-Ue-r6J"/>
+                <constraint firstItem="ab8-KL-K3t" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="157" id="eex-lp-0LM"/>
+                <constraint firstItem="ASc-nm-OHs" firstAttribute="trailing" secondItem="Dnc-NC-sVv" secondAttribute="trailing" id="xvY-Iz-Cll"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="136.64122137404578" y="19.718309859154932"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
