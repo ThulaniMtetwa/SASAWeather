@@ -13,7 +13,7 @@ public struct JSONConverter {
             let decoded = try JSONDecoder().decode(T.self, from: data)
             return decoded
         } catch {
-            throw error
+            throw NetworkError.invalidResponse
         }
     }
 }

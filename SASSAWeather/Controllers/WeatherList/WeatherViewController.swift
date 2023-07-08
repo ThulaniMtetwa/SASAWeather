@@ -9,74 +9,105 @@ import UIKit
 
 class WeatherViewController: UIViewController {
     
-    var data: Weather?
-    
-    var weatherViewModel = WeatherViewModel(repo: WeatherRepository(apiService: NetworkManager()))
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
+    
+    var weatherViewModel = WeatherViewModel(repo: WeatherRepository(apiService: NetworkManager())) //This can be avoided with dependency containers
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        registerNetworkMonitoring()
+        configureTableView()
+        loadActivityIndicator()
+        loadViewWithData()
+    }
+    
+    private func loadViewWithData() {
+        weatherViewModel.getWeatherForecast{ [weak self] forecast in
+            
+            switch forecast {
+            case .success(_):
+                DispatchQueue.main.async {
+                    self?.updateUI()
+                }
+            case .failure(let failure):
+                DispatchQueue.main.async {
+                    self?.presentAlert(of: failure)
+                }
+            }
+        }
+    }
+    
+    private func presentAlert(of alertType: NetworkError) {
+        switch alertType {
+        case .failedRequest, .invalidResponse, .unexpectedStatusCode:
+            self.tableView.setEmptyView(title: "Something unexpected happened.",
+                                        message: "Please pull down to refresh to try again :)",
+                                        messageImage: UIImage(systemName: "exclamationmark.triangle.fill")?.withTintColor(.red))
+            break
+        case .unknown, .invalidURL:
+            
+            let alertController = UIAlertController(title: "Important",
+                                                    message: "We sincerely apologise for this. Contact ThulaniMtetwa@gmail.com for assistance :)",
+                                                    preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            
+            present(alertController, animated: true)
+        }
+    }
+    
+    private func registerNetworkMonitoring() {
         NotificationCenter.default.addObserver(self, selector: #selector(showOfflineDeviceUI(notification:)), name: NSNotification.Name.connectivityStatus, object: nil)
+    }
+    
+    private func configureTableView() {
+        tableView.isHidden = true
         tableView.dataSource = self
         tableView.delegate = self
         tableView.allowsSelection = false
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(callPullToRefresh), for: .valueChanged)
-        // Do any additional setup after loading the view.
-        setupView()
-        weatherViewModel.getWeatherForecast{ [weak self] breaches in
-            
-            //            switch breaches
-            DispatchQueue.main.async {
-                self?.updateUI()
-            }
-        }
     }
     
-    @objc func showOfflineDeviceUI(notification: Notification) {
-            if NetworkMonitor.shared.isConnected {
-                DispatchQueue.main.async {
-                    self.updateUI()
-                    
-                }
-            } else {
-                DispatchQueue.main.async {self.tableView.setEmptyView(title: "You don't have any contact.", message: "Your contacts will be in here.", messageImage: UIImage(systemName: "sun.max")!)}
-                
-            }
-        }
-    
-    private func setupView() {
-        // Configure Weather Data Container View
-        tableView.isHidden = true
-        
-        // Configure Activity Indicator View
+    private func loadActivityIndicator() {
         activityIndicatorView.startAnimating()
         activityIndicatorView.hidesWhenStopped = true
     }
     
-    private lazy var dayFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter
-    }()
-    
-    private lazy var dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM d"
-        return dateFormatter
-    }()
-    
-    func updateUI() {
+    private func updateUI() {
         self.tableView.refreshControl?.endRefreshing()
         activityIndicatorView.stopAnimating()
         tableView.isHidden = false
         tableView.reloadData()
-        
+    }
+    
+    @objc func showOfflineDeviceUI(notification: Notification) {
+        if NetworkMonitor.shared.isConnected {
+            DispatchQueue.main.async {
+                self.updateUI()
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.showErrorView(title: "No Internet Connection",
+                                   message: "Make sure you on a stable line. Please pull down to refresh to try again :)",
+                                   messageImage: UIImage(systemName: "wifi.exclamationmark")?.withTintColor(.red))
+            }
+        }
+    }
+    
+    
+    private func showErrorView(title: String, message: String, messageImage: UIImage?) {
+        self.tableView.setEmptyView(title: title,
+                                    message: message,
+                                    messageImage: messageImage)
     }
     
     deinit {
         NetworkMonitor.shared.stopMonitoring()
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func callPullToRefresh(){
@@ -91,40 +122,23 @@ class WeatherViewController: UIViewController {
 
 extension WeatherViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weatherViewModel.weather?.forecasts.count ?? 0
-        //        tableView.setEmptyView(title: "You don't have any contact.", message: "Your contacts will be in here.", messageImage: UIImage(systemName: "sun.max")!)
-        //        return 0
+        guard let forecasts = weatherViewModel.weather?.forecasts else {
+            self.tableView.setEmptyView(title: "No Data.",
+                                        message: "Please pull down to refresh to try again :)",
+                                        messageImage: UIImage(systemName: "exclamationmark.triangle.fill")?.withTintColor(.red))
+            return 0
+        }
+        return forecasts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.reuseIdentifier, for: indexPath) as? WeatherTableViewCell else {
-            fatalError("Unable to Dequeue Weather Day Table View Cell")
+            fatalError("Unable to Dequeue \(String(describing: WeatherTableViewCell.self))")
         }
-        let cellData = weatherViewModel.weather?.forecasts[indexPath.row]
-        if let date = cellData?.date, compareDate(dateFromString(string: date)) {
-            cell.dayLabel.text = "Today"
-        } else {
-            cell.dayLabel.text = dayFormatter.string(from: dateFromString(string: cellData?.date ?? ""))
-        }
-        cell.temperatureLabel.text = String(format: "%.0C°", cellData?.temp.toCelcius ?? 0.0)
-        cell.windSpeedLabel.text = String(format: "%.f KPH", cellData?.windSpeed.toKPH ?? 0.0)
-        return cell
-    }
-    
-    func dateFromString(string: String) -> Date {
-        let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions = [.withFullDate] // Added format options
-        let date = dateFormatter.date(from: string) ?? Date.now
-        return date
-    }
-    
-    func compareDate(_ date: Date) -> Bool {
         
-        var calendar = Calendar.current
-        calendar.timeZone = TimeZone.autoupdatingCurrent
-        let result = calendar.compare(date, to: Date.now, toGranularity: .weekday)
-        return result == .orderedSame
+        cell.configureCell(with: weatherViewModel, at: indexPath)
+        return cell
     }
 }
 

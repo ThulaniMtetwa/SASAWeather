@@ -34,6 +34,9 @@
 		8AEF5D4D2A597E0700EC1D6E /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF5D4C2A597E0700EC1D6E /* NetworkMonitor.swift */; };
 		8AEF5D4F2A597F8700EC1D6E /* NWInterface+Iterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF5D4E2A597F8700EC1D6E /* NWInterface+Iterable.swift */; };
 		8AEF5D512A597FC000EC1D6E /* Notification+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF5D502A597FC000EC1D6E /* Notification+Names.swift */; };
+		8AEF5D542A5992E200EC1D6E /* JSONConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF5D532A5992E200EC1D6E /* JSONConverterTests.swift */; };
+		8AEF5D562A599C5300EC1D6E /* WeatherRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF5D552A599C5300EC1D6E /* WeatherRepositoryTests.swift */; };
+		8AEF5D582A599CF200EC1D6E /* APIRequestProtocolMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF5D572A599CF200EC1D6E /* APIRequestProtocolMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +80,9 @@
 		8AEF5D4C2A597E0700EC1D6E /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		8AEF5D4E2A597F8700EC1D6E /* NWInterface+Iterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NWInterface+Iterable.swift"; sourceTree = "<group>"; };
 		8AEF5D502A597FC000EC1D6E /* Notification+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Names.swift"; sourceTree = "<group>"; };
+		8AEF5D532A5992E200EC1D6E /* JSONConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONConverterTests.swift; sourceTree = "<group>"; };
+		8AEF5D552A599C5300EC1D6E /* WeatherRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepositoryTests.swift; sourceTree = "<group>"; };
+		8AEF5D572A599CF200EC1D6E /* APIRequestProtocolMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestProtocolMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +163,7 @@
 			children = (
 				8A3514D92A590FC50014E91A /* Helper */,
 				8A3514C12A587CA10014E91A /* URLProtocolMock.swift */,
+				8AEF5D572A599CF200EC1D6E /* APIRequestProtocolMock.swift */,
 			);
 			path = Mocking;
 			sourceTree = "<group>";
@@ -165,6 +172,8 @@
 			isa = PBXGroup;
 			children = (
 				8A3514B82A587C5F0014E91A /* SASSAWeatherTests.swift */,
+				8AEF5D532A5992E200EC1D6E /* JSONConverterTests.swift */,
+				8AEF5D552A599C5300EC1D6E /* WeatherRepositoryTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -207,7 +216,6 @@
 		8A3514D12A590A0D0014E91A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8A3514E62A59375E0014E91A /* Storyboards */,
 				8A3514A42A5872C30014E91A /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -277,6 +285,7 @@
 		8A3514E72A5944C50014E91A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8A3514E62A59375E0014E91A /* Storyboards */,
 				8AEF5D482A5966E900EC1D6E /* Reusable */,
 				8AEF5D432A595F3D00EC1D6E /* Cells */,
 			);
@@ -454,8 +463,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AEF5D542A5992E200EC1D6E /* JSONConverterTests.swift in Sources */,
 				8A3514B92A587C5F0014E91A /* SASSAWeatherTests.swift in Sources */,
+				8AEF5D562A599C5300EC1D6E /* WeatherRepositoryTests.swift in Sources */,
 				8A3514C22A587CA10014E91A /* URLProtocolMock.swift in Sources */,
+				8AEF5D582A599CF200EC1D6E /* APIRequestProtocolMock.swift in Sources */,
 				8A3514DB2A590FE10014E91A /* TestDataGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

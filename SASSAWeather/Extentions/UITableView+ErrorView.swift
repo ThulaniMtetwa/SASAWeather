@@ -9,11 +9,12 @@ import UIKit
 
 extension UITableView {
     
-    func setEmptyView(title: String, message: String, messageImage: UIImage) {
+    func setEmptyView(title: String, message: String, messageImage: UIImage?) {
         
         let view = HandleErrorView(frame: self.bounds)
-        
-        view.messageImageView.image = messageImage
+        if messageImage != nil {
+            view.messageImageView.image = messageImage
+        }
         view.titleLabel.text = title
         view.messageLabel.text = message
         

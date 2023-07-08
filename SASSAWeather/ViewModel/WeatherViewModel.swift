@@ -12,11 +12,30 @@ class WeatherViewModel {
     
     private let repo: WeatherRepositoryProtocol
     
+    public lazy var dayFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        return dateFormatter
+    }()
+    
+    public lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM d"
+        return dateFormatter
+    }()
+    
     init(model: Weather? = nil, repo: WeatherRepositoryProtocol) {
         self.repo = repo
         if let inputModel = model {
             self.weather = inputModel
         }
+    }
+    
+    func dateFromString(string: String) -> Date {
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withFullDate]
+        let date = dateFormatter.date(from: string) ?? Date.now
+        return date
     }
 }
 

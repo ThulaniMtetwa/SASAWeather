@@ -15,8 +15,4 @@ extension Double {
     var toKPH: Double {
         self * 1.609344
     }
-    
-    var toFahrenheit: Double {
-        (self.toCelcius * 1.8) + 32
-    }
 }

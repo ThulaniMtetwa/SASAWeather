@@ -13,13 +13,4 @@ enum NetworkError: Error {
     case unknown
     case invalidResponse
     case failedRequest
-    
-    var customMessage: String {
-        switch self {
-        case .invalidResponse:
-            return "Decode error"
-        default:
-            return "Unknown error. Please try again."
-        }
-    }
 }
