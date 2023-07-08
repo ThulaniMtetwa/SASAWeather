@@ -1,5 +1,5 @@
 //
-//  NoDataFoundView.swift
+//  HandleErrorView.swift
 //  SASSAWeather
 //
 //  Created by Thulani Mtetwa on 2023/07/08.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class NoDataFoundView: UIView {
-
+class HandleErrorView: UIView {
+    
     @IBOutlet weak var messageImageView: UIImageView!{
         didSet{
             messageImageView.backgroundColor = .clear
@@ -16,19 +16,17 @@ class NoDataFoundView: UIView {
     }
     @IBOutlet weak var titleLabel: UILabel!{
         didSet{
-            titleLabel.text = "Something went wrong"
-            titleLabel.textColor = UIColor.black
-                    titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
+            titleLabel.textColor = .darkText
+            titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
         }
     }
     @IBOutlet weak var messageLabel: UILabel! {
         didSet{
-            messageLabel.textColor = UIColor.lightGray
-                    messageLabel.font = UIFont(name: "HelveticaNeue-Regular", size: 17)
-            messageLabel.textAlignment = .center
+            messageLabel.textColor = .lightText
+            messageLabel.font = UIFont(name: "HelveticaNeue-Regular", size: 17)
         }
     }
-    let nibName = "NoDataFoundView"
+    let nibName = String(describing: HandleErrorView.self)
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -50,5 +48,5 @@ class NoDataFoundView: UIView {
         let nib = UINib(nibName: nibName, bundle: nil)
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
-
+    
 }

@@ -17,6 +17,7 @@ class WeatherViewController: UIViewController {
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(showOfflineDeviceUI(notification:)), name: NSNotification.Name.connectivityStatus, object: nil)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.allowsSelection = false
@@ -32,6 +33,18 @@ class WeatherViewController: UIViewController {
             }
         }
     }
+    
+    @objc func showOfflineDeviceUI(notification: Notification) {
+            if NetworkMonitor.shared.isConnected {
+                DispatchQueue.main.async {
+                    self.updateUI()
+                    
+                }
+            } else {
+                DispatchQueue.main.async {self.tableView.setEmptyView(title: "You don't have any contact.", message: "Your contacts will be in here.", messageImage: UIImage(systemName: "sun.max")!)}
+                
+            }
+        }
     
     private func setupView() {
         // Configure Weather Data Container View
@@ -60,6 +73,10 @@ class WeatherViewController: UIViewController {
         tableView.isHidden = false
         tableView.reloadData()
         
+    }
+    
+    deinit {
+        NetworkMonitor.shared.stopMonitoring()
     }
     
     @objc func callPullToRefresh(){

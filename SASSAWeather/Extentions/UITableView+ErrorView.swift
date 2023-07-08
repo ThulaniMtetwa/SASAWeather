@@ -11,13 +11,11 @@ extension UITableView {
     
     func setEmptyView(title: String, message: String, messageImage: UIImage) {
         
-        let view = NoDataFoundView(frame: self.bounds)
+        let view = HandleErrorView(frame: self.bounds)
         
         view.messageImageView.image = messageImage
         view.titleLabel.text = title
         view.messageLabel.text = message
-        view.messageLabel.numberOfLines = 0
-        view.messageLabel.textAlignment = .center
         
         UIView.animate(withDuration: 1, animations: {
                     
@@ -38,10 +36,8 @@ extension UITableView {
     }
     
     func restore() {
-        
         self.backgroundView = nil
         self.separatorStyle = .singleLine
-        
     }
     
 }
