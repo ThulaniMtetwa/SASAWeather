@@ -24,7 +24,7 @@ class WeatherViewController: UIViewController {
         tableView.refreshControl?.addTarget(self, action: #selector(callPullToRefresh), for: .valueChanged)
         // Do any additional setup after loading the view.
         setupView()
-        weatherViewModel.fetchBreaches{ [weak self] breaches in
+        weatherViewModel.getWeatherForecast{ [weak self] breaches in
             
             //            switch breaches
             DispatchQueue.main.async {
@@ -63,9 +63,8 @@ class WeatherViewController: UIViewController {
     }
     
     @objc func callPullToRefresh(){
-        weatherViewModel.fetchBreaches{ [weak self] breaches in
+        weatherViewModel.getWeatherForecast{ [weak self] data in
             
-            //            switch breaches
             DispatchQueue.main.async {
                 self?.updateUI()
             }

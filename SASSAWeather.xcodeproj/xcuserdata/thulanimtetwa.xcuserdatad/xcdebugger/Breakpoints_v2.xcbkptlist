@@ -3,4 +3,102 @@
    uuid = "85CB0816-9EFF-46B5-BBEC-C3F29327B819"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DFC4D27A-CC59-49A5-96A0-F573DA955549"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SASSAWeather/ViewModel/WeatherViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "getWeatherForecast(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B7D20E27-916E-47C1-81E5-7EF4287E5884"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SASSAWeather/ViewModel/WeatherViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "getWeatherForecast(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B6D2F211-40C5-45D3-AAAA-1E81720E8878"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SASSAWeather/Repository/WeatherRepository.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "didFetchWeatherData(data:error:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B6D2F211-40C5-45D3-AAAA-1E81720E8878 - 98dc4887b20b3b7e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SASSAWeather.WeatherRepository.didFetchWeatherData(data: Swift.Optional&lt;Foundation.Data&gt;, error: Swift.Optional&lt;Swift.Error&gt;, completion: (Swift.Result&lt;Swift.Optional&lt;SASSAWeather.Weather&gt;, SASSAWeather.NetworkError&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "SASSAWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/thulanimtetwa/Desktop/SASSAWeather/SASSAWeather/Repository/WeatherRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "986">
+               </Location>
+               <Location
+                  uuid = "B6D2F211-40C5-45D3-AAAA-1E81720E8878 - 98dc4887b20b3b7e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SASSAWeather.WeatherRepository.didFetchWeatherData(data: Swift.Optional&lt;Foundation.Data&gt;, error: Swift.Optional&lt;Swift.Error&gt;, completion: (Swift.Result&lt;Swift.Optional&lt;SASSAWeather.Weather&gt;, SASSAWeather.NetworkError&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "SASSAWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/thulanimtetwa/Desktop/SASSAWeather/SASSAWeather/Repository/WeatherRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "312">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "611A3385-313B-41E2-A4A5-91CB3C31CC0D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SASSAWeather/Networking/Logic/NetworkManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "getWeatherDetails(_:using:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

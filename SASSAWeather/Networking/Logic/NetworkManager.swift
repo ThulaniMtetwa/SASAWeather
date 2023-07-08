@@ -21,7 +21,7 @@ struct NetworkManager: APIRequestProtocol {
         }
         
         session.dataTask(with: URLRequest(url: url), completionHandler: { data, response, error in
-            if let error = error {
+            if error != nil {
                 completionHandler(.failure(.failedRequest))
             } else if let data = data, let response = response as? HTTPURLResponse,
                       200 ..< 300 ~= response.statusCode {

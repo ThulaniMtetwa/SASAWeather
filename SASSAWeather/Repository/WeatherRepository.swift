@@ -36,12 +36,10 @@ class WeatherRepository: WeatherRepositoryProtocol {
     }
     
     private func didFetchWeatherData(data: Data?, error: Error?, completion: WeatherDataResult) {
-        guard error != nil else {
+        if error != nil {
             completion(.failure(.failedRequest))
             return
-        }
-        
-        if let data = data {
+        } else if let data = data {
             do {
                 let result: Weather? = try JSONConverter.decode(data)
                 completion(.success(result))
