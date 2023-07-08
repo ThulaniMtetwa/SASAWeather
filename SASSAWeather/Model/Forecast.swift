@@ -9,6 +9,6 @@ import Foundation
 
 struct Forecast: Codable {
     let date: String
-    let temp, humidity, windSpeed: Int
+    let temp, humidity, windSpeed: Double
     let safe: Bool
 }

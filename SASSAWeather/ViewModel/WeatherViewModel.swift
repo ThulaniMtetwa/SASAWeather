@@ -18,7 +18,7 @@ class WeatherViewModel {
 }
 
 extension WeatherViewModel {
-    func fetchBreaches(completion: @escaping (Result<Weather, Error>) -> Void) {
+    func fetchBreaches(completion: @escaping (Result<Weather?, Error>) -> Void) {
         
         NetworkManager.sharedInstance.getWeatherDetails(URLSession.shared, using: { [weak self] result in
             guard let self = self else {return}
@@ -28,8 +28,9 @@ extension WeatherViewModel {
                 let decoder = JSONDecoder()
                 do
                 {
-                    self.weather = try decoder.decode(Weather.self, from: success.data)
-                    completion(.success(try decoder.decode(Weather.self, from: success.data)))
+                    let result: Weather? = try JSONConverter.decode(success.data)
+                    self.weather = result
+                    completion(.success(result))
                 } catch {
                     // deal with error from JSON decoding if used in production
                 }

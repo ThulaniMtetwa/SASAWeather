@@ -59,6 +59,7 @@ extension ViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let cellData = weatherViewModel.weather?.forecasts[indexPath.row]
         cell.textLabel?.text = cellData?.date
+        cell.imageView?.image = cellData?.safe ?? false ? UIImage(systemName: "sun.max") : UIImage(systemName: "sun.max.trianglebadge.exclamationmark")
         
         return cell
     }

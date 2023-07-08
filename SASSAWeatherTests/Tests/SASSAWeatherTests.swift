@@ -27,6 +27,8 @@ final class SASSAWeatherTests: XCTestCase {
     }
     
     func testSuccessful() {
+        
+        SASSAWeatherNetworkMock().getWeather()
         let json = """
 {
    "forecasts":[
@@ -69,5 +71,11 @@ final class SASSAWeatherTests: XCTestCase {
     
     override class func tearDown() {
         super.tearDown()
+    }
+}
+
+final class SASSAWeatherNetworkMock: TestDataGenerator {
+    func getWeather() {
+        dump(loadJSON(filename: "weather_response", type: Weather.self))
     }
 }
