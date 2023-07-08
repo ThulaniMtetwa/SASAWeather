@@ -7,30 +7,29 @@
 
 import Foundation
 
-class NetworkManager {
+protocol APIRequestProtocol {
+    func getWeatherDetails(_ session: URLSession, using completionHandler: @escaping (Result<Data, NetworkError>) -> Void)
+}
+
+struct NetworkManager: APIRequestProtocol {
     
-    static let sharedInstance = NetworkManager()
-    
-    
-    private init() {}
-    
-    func getWeatherDetails(_ session: URLSession, using completionHandler: @escaping (Result<Data, Error>) -> Void) {
+    func getWeatherDetails(_ session: URLSession, using completionHandler: @escaping (Result<Data, NetworkError>) -> Void) {
         
         guard let url = URL(string: Constants.nasaURL) else {
-            completionHandler(.failure(NetworkError.invalidURL))
+            completionHandler(.failure(.invalidURL))
             return
         }
         
         session.dataTask(with: URLRequest(url: url), completionHandler: { data, response, error in
             if let error = error {
-                completionHandler(.failure(error))
+                completionHandler(.failure(.failedRequest))
             } else if let data = data, let response = response as? HTTPURLResponse,
                       200 ..< 300 ~= response.statusCode {
                 completionHandler(.success(data))
             } else {
-                completionHandler(.failure(NetworkError.unexpectedStatusCode))
+                completionHandler(.failure(.unexpectedStatusCode))
                 return
             }
         }).resume()
-    }    
+    }
 }

@@ -11,7 +11,7 @@ class WeatherViewController: UIViewController {
     
     var data: Weather?
     
-    var weatherViewModel = WeatherViewModel()
+    var weatherViewModel = WeatherViewModel(repo: WeatherRepository(apiService: NetworkManager()))
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!

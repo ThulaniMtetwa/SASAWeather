@@ -7,19 +7,23 @@
 
 import Foundation
 
-enum WeatherDataError: Error {
-    case invalidResponse
-    case failedRequest
-    case unknown
+protocol WeatherRepositoryProtocol: AnyObject {
+    func fetchWeatherDetails(completion: @escaping (Result<Weather?, NetworkError>) -> Void)
 }
 
-class WeatherRepository {
+class WeatherRepository: WeatherRepositoryProtocol {
     
-    typealias WeatherDataResult = (Result<Weather?, WeatherDataError>) -> ()
+    typealias WeatherDataResult = (Result<Weather?, NetworkError>) -> ()
     
-    func fetchWeatherDetails(completion: @escaping (Result<Weather?, WeatherDataError>) -> Void) {
+    private let apiService: APIRequestProtocol
+    
+    init(apiService: APIRequestProtocol) {
+        self.apiService = apiService
+    }
+    
+    func fetchWeatherDetails(completion: @escaping (Result<Weather?, NetworkError>) -> Void) {
         
-        NetworkManager.sharedInstance.getWeatherDetails(URLSession.shared, using: { result in
+        apiService.getWeatherDetails(URLSession.shared, using: { result in
             
             switch result {
             case .success(let success):
@@ -32,27 +36,21 @@ class WeatherRepository {
     }
     
     private func didFetchWeatherData(data: Data?, error: Error?, completion: WeatherDataResult) {
-        if let error = error {
+        guard error != nil else {
             completion(.failure(.failedRequest))
-            print("Unable to Fetch Weather Data, \(error)")
-
-        } else if let data = data {
-            
-                do {
-                    // Decode JSON
-                    let result: Weather? = try JSONConverter.decode(data)
-
-                    // Invoke Completion Handler
-                    completion(.success(result))
-
-                } catch {
-                    completion(.failure(.invalidResponse))
-                    print("Unable to Decode Response, \(error)")
-                }
-
+            return
+        }
+        
+        if let data = data {
+            do {
+                let result: Weather? = try JSONConverter.decode(data)
+                completion(.success(result))
+                
+            } catch {
+                completion(.failure(.invalidResponse))
+            }
         } else {
             completion(.failure(.unknown))
         }
     }
-
 }

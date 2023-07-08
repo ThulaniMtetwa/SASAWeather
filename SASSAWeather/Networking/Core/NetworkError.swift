@@ -8,15 +8,15 @@
 import Foundation
 
 enum NetworkError: Error {
-    case decode
     case invalidURL
-    case noResponse
     case unexpectedStatusCode
     case unknown
+    case invalidResponse
+    case failedRequest
     
     var customMessage: String {
         switch self {
-        case .decode:
+        case .invalidResponse:
             return "Decode error"
         default:
             return "Unknown error. Please try again."

@@ -10,7 +10,10 @@ import Foundation
 class WeatherViewModel {
     var weather: Weather?
     
-    init(model: Weather? = nil) {
+    private let repo: WeatherRepositoryProtocol
+    
+    init(model: Weather? = nil, repo: WeatherRepositoryProtocol) {
+        self.repo = repo
         if let inputModel = model {
             self.weather = inputModel
         }
@@ -18,9 +21,7 @@ class WeatherViewModel {
 }
 
 extension WeatherViewModel {
-    func fetchBreaches(completion: @escaping (Result<Weather?, Error>) -> Void) {
-        
-        let repo = WeatherRepository()
+    func getWeatherForecast(completion: @escaping (Result<Weather?, NetworkError>) -> Void) {
         repo.fetchWeatherDetails(completion: { [weak self] result in
             guard let self = self else {return}
             
